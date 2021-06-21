@@ -13,7 +13,7 @@
     filename: "hashicorp"
     state: present
 
-- name: Install Azure CLI
+- name: Install Terraform
   apt:
     name: "terraform"
     update_cache: yes
