@@ -1,0 +1,20 @@
+---
+# Install Terraform
+# Based on <https://www.terraform.io/docs/cli/install/apt.html>
+
+- name: Import the HashiCorp signing key into apt
+  apt_key:
+    url: "https://apt.releases.hashicorp.com/gpg"
+    state: present
+
+- name: Add the HashiCorp software repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://apt.releases.hashicorp.com {{ansible_distribution_release}} main"
+    filename: "hashicorp"
+    state: present
+
+- name: Install Azure CLI
+  apt:
+    name: "terraform"
+    update_cache: yes
+...

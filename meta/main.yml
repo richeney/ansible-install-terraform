@@ -1,0 +1,23 @@
+---
+galaxy_info:
+  role_name: azure_cli
+  author: azurecitadel
+  description: This role installs the Microsoft Azure CLI for Linux.
+  company: "None"
+  license: "MIT"
+  min_ansible_version: 2.4
+  platforms:
+  - name: Ubuntu
+    versions:
+      - xenial
+      - bionic
+      - focal
+  galaxy_tags:
+    - cloud
+    - microsoft
+    - azure
+    - cli
+
+dependencies: []
+
+...
