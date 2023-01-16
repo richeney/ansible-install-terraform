@@ -1,17 +1,22 @@
 ---
 # Install Terraform
 # Based on <https://www.terraform.io/docs/cli/install/apt.html>
+# Updated for apt-key deprecation
 
-- name: Import the HashiCorp signing key into apt
-  apt_key:
-    url: "https://apt.releases.hashicorp.com/gpg"
-    state: present
+- name: Add the Hashicorp package repository
+  block:
+    - name: Download the Hashicorp package repository signing key
+      ansible.builtin.get_url:
+        url: https://apt.releases.hashicorp.com/gpg
+        dest: /usr/share/keyrings/hashicorp-archive-keyring.asc
+        mode: '0644'
+        force: true
 
-- name: Add the HashiCorp software repository
-  apt_repository:
-    repo: "deb [arch=amd64] https://apt.releases.hashicorp.com {{ansible_distribution_release}} main"
-    filename: "hashicorp"
-    state: present
+    - name: Add the Hashicorp package repository to /etc/apt/sources.list.d
+      ansible.builtin.apt_repository:
+        repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/hashicorp-archive-keyring.asc] https://apt.releases.hashicorp.com {{ansible_distribution_release}} main"
+        filename: hashicorp
+        state: present
 
 - name: Install Terraform
   apt:
